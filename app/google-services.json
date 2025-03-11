@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "150286889289",
+    "project_id": "olympuscourier-745f0",
+    "storage_bucket": "olympuscourier-745f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150286889289:android:43dd9bb589670682486a98",
+        "android_client_info": {
+          "package_name": "com.atm.olympuscourierapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAds3ef6FKWaocjQOWxCxIYBnsi7jurCDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150286889289:android:d5f08f63d716a04e486a98",
+        "android_client_info": {
+          "package_name": "com.jjmf.android.olympuscourierapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAds3ef6FKWaocjQOWxCxIYBnsi7jurCDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
