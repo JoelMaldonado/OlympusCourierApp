@@ -13,6 +13,7 @@ import com.atm.olympuscourierapp.domain.usecases.Common.GetAllEstadoEnvioUseCase
 import com.atm.olympuscourierapp.domain.usecases.Common.GetAllUsuariosUseCase
 import com.atm.olympuscourierapp.domain.usecases.Common.GetAllVehiculoUseCase
 import com.atm.olympuscourierapp.util.format
+import com.jjmf.android.olympuscourierapp.domain.model.NewReparto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -50,7 +51,6 @@ class VerRepartosViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 state = state.copy(isLoading = true)
-                delay(500)
                 val res = repository.listarRepartos(
                     fecha = state.fecha.format("yyyy-MM-dd"),
                     estado = state.estadoFiltro?.codigo,
@@ -58,7 +58,6 @@ class VerRepartosViewModel @Inject constructor(
                     id_vehiculo = state.vehiculoFiltro?.id,
                     id_subido = state.deliveryFiltro?.id
                 )
-
                 when (res) {
                     is EstadosResult.Correcto -> {
                         state = state.copy(listRepartos = res.datos.orEmpty())

@@ -12,9 +12,9 @@ import com.atm.olympuscourierapp.ui.features.DetalleReparto.DetailRepartoScreen
 import com.atm.olympuscourierapp.ui.features.Login.LoginScreen
 import com.atm.olympuscourierapp.ui.features.Menu.MenuScreen
 import com.atm.olympuscourierapp.ui.features.Perfil.PerfilScreen
+import com.atm.olympuscourierapp.ui.features.Settings.SettingsScreen
 import com.atm.olympuscourierapp.ui.features.VerCodigo.VerCodigoScreen
 import com.atm.olympuscourierapp.ui.features.VerRepartos.VerRepartosScreen
-import com.jjmf.android.olympuscourierapp.ui.navigation.Rutas
 
 @Composable
 fun NavegacionPrincipal(
@@ -43,6 +43,9 @@ fun NavegacionPrincipal(
                 },
                 toVerCodigo = {
                     navController.navigate(Rutas.VerCodigo.url)
+                },
+                toSettings = {
+                    navController.navigate(Rutas.Settings.url)
                 }
             )
         }
@@ -113,6 +116,16 @@ fun NavegacionPrincipal(
                     }
                 )
             }
+        }
+
+        composable(
+            route = Rutas.Settings.url
+        ) {
+            SettingsScreen(
+                back = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

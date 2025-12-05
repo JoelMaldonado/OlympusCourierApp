@@ -40,7 +40,10 @@ import com.jjmf.android.olympuscourierapp.domain.model.NewReparto
 
 @Composable
 fun CardReparto(
-    reparto: NewReparto,
+    id: String,
+    cliente: String,
+    direccion: String,
+    estado: EstadoReparto,
     toDetalle: () -> Unit,
     subirMercaderia: () -> Unit,
     toDarConformidad: () -> Unit,
@@ -87,7 +90,7 @@ fun CardReparto(
                         )
 
                         Text(
-                            text = "#${reparto.formatoID()}",
+                            text = id,
                             color = ColorP1,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -103,12 +106,12 @@ fun CardReparto(
                         ) {
                             Text(
                                 fontSize = 14.sp,
-                                text = reparto.cliente ?: "",
+                                text = cliente,
                                 color = ColorT1
                             )
                             Text(
                                 fontSize = 12.sp,
-                                text = reparto.direccion ?: "",
+                                text = direccion,
                                 color = ColorT1,
                                 lineHeight = 16.sp
                             )
@@ -122,19 +125,19 @@ fun CardReparto(
                 }
 
                 Text(
-                    text = reparto.estado.nombre ?: "",
-                    color = reparto.estado.color,
+                    text = estado.nombre,
+                    color = estado.color,
                     fontSize = 14.sp,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(top = 10.dp, end = 10.dp)
                         .clip(RoundedCornerShape(5.dp))
-                        .background(reparto.estado.color.copy(0.1f))
+                        .background(estado.color.copy(0.1f))
                         .padding(horizontal = 5.dp, vertical = 2.dp)
                 )
             }
         }
-        when (reparto.estado) {
+        when (estado) {
             EstadoReparto.Pendiente -> {
                 ButtonIcon(
                     modifier = Modifier.align(Alignment.End),

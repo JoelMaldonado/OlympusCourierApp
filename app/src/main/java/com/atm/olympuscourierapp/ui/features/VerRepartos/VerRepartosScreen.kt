@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.atm.olympuscourierapp.R
+import com.atm.olympuscourierapp.domain.model.EstadoReparto
 import com.atm.olympuscourierapp.ui.components.CardReparto
 import com.atm.olympuscourierapp.ui.components.CardRepartoShimmer
 import com.atm.olympuscourierapp.ui.features.VerRepartos.Components.Drawer
@@ -129,6 +130,7 @@ fun VerRepartosScreen(
                                 CardRepartoShimmer()
                             }
                         }
+
                         state.listRepartos.isEmpty() -> Text(
                             text = "No hay repartos para mostrar",
                             color = Color.Gray
@@ -139,17 +141,19 @@ fun VerRepartosScreen(
                                 modifier = Modifier.fillMaxSize()
                             ) {
                                 items(state.listRepartos) { reparto ->
-                                    val id = reparto.id
                                     CardReparto(
-                                        reparto = reparto,
+                                        id = "#${reparto.formatoID()}",
+                                        cliente = reparto.cliente,
+                                        direccion = reparto.direccion,
+                                        estado = reparto.estado,
                                         toDetalle = {
-                                            toDetalle(id)
+                                            toDetalle(reparto.id)
                                         },
                                         subirMercaderia = {
-                                            viewModel.subirMercaderia(id)
+                                            viewModel.subirMercaderia(reparto.id)
                                         },
                                         toDarConformidad = {
-                                            toDarConformidad(id)
+                                            toDarConformidad(reparto.id)
                                         }
                                     )
                                 }

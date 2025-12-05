@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -44,7 +45,8 @@ import com.jjmf.android.olympuscourierapp.ui.features.Menu.MenuViewModel
 fun MenuScreen(
     logout: () -> Unit,
     toVerRepartos: () -> Unit,
-    toVerCodigo: ()->Unit,
+    toVerCodigo: () -> Unit,
+    toSettings: () -> Unit,
     viewModel: MenuViewModel = hiltViewModel(),
 ) {
 
@@ -66,7 +68,9 @@ fun MenuScreen(
         Image(
             painter = painterResource(id = R.drawable.ic_logo_large_slogan),
             contentDescription = null,
-            modifier = Modifier.fillMaxWidth().padding(top = 40.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 40.dp),
             contentScale = ContentScale.FillWidth
         )
 
@@ -110,6 +114,22 @@ fun MenuScreen(
                 icon = R.drawable.ic_qr,
                 title = "Codigo QR",
                 click = toVerCodigo
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+
+            CardMenu(
+                modifier = Modifier.weight(1f),
+                icon = R.drawable.ic_settings,
+                title = "Configuración",
+                click = toSettings
+            )
+            Spacer(
+                modifier = Modifier.weight(1f)
             )
         }
 

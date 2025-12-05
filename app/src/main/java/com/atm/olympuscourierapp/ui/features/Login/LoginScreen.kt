@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import com.atm.olympuscourierapp.BuildConfig
 import com.atm.olympuscourierapp.R
 import com.atm.olympuscourierapp.ui.components.CajaTextoLogin
 import com.atm.olympuscourierapp.ui.theme.ColorFondo
@@ -74,118 +77,138 @@ fun LoginScreen(
         }
     }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(ColorFondo)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.fondo_login),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp),
-            contentScale = ContentScale.FillBounds
-        )
+
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .fillMaxSize()
         ) {
-            Column {
-                Text(
-                    text = "Bienvenido",
-                    color = ColorP1,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Light
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_logo_large),
-                    contentDescription = null,
-                    modifier = Modifier.width(250.dp)
-                )
-            }
-            CajaTextoLogin(
-                valor = viewModel.documento,
-                newValor = {
-                    viewModel.documento = it
-                },
-                ic = Icons.Default.Person,
-                label = "Ingrese su documento",
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next,
-                keyboardActions = KeyboardActions(
-                    onNext = {
-                        focus.moveFocus(FocusDirection.Down)
-                    }
-                ),
-                modifier = Modifier.padding(top = 12.dp)
+            Image(
+                painter = painterResource(id = R.drawable.fondo_login),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                contentScale = ContentScale.FillBounds
             )
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Column {
+                    Text(
+                        text = "Bienvenido",
+                        color = ColorP1,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Light
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logo_large),
+                        contentDescription = null,
+                        modifier = Modifier.width(250.dp)
+                    )
+                }
                 CajaTextoLogin(
-                    valor = viewModel.clave,
+                    valor = viewModel.documento,
                     newValor = {
-                        if (it.length < 9) {
-                            viewModel.clave = it
-                        }
+                        viewModel.documento = it
                     },
-                    label = "Ingrese su contraseña",
+                    ic = Icons.Default.Person,
+                    label = "Ingrese su documento",
                     keyboardType = KeyboardType.Number,
-                    ic = Icons.Default.Lock,
-                    imeAction = ImeAction.Done,
+                    imeAction = ImeAction.Next,
                     keyboardActions = KeyboardActions(
-                        onDone = {
-                            focus.clearFocus()
+                        onNext = {
+                            focus.moveFocus(FocusDirection.Down)
                         }
                     ),
-                    visualTransformation = PasswordVisualTransformation()
+                    modifier = Modifier.padding(top = 12.dp)
                 )
-                RecordarUsuario()
-            }
-            Spacer(modifier = Modifier.height(5.dp))
+                Column {
+                    CajaTextoLogin(
+                        valor = viewModel.clave,
+                        newValor = {
+                            if (it.length < 9) {
+                                viewModel.clave = it
+                            }
+                        },
+                        label = "Ingrese su contraseña",
+                        keyboardType = KeyboardType.Number,
+                        ic = Icons.Default.Lock,
+                        imeAction = ImeAction.Done,
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focus.clearFocus()
+                            }
+                        ),
+                        visualTransformation = PasswordVisualTransformation()
+                    )
+                    RecordarUsuario()
+                }
+                Spacer(modifier = Modifier.height(5.dp))
 
-            if (viewModel.loader) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            } else {
-                Button(
-                    onClick = viewModel::login,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = ColorP1,
-                        contentColor = Color.White,
-                        disabledContainerColor = ColorP1
-                    ),
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(10.dp),
-                    contentPadding = PaddingValues(15.dp)
-                ) {
-                    Text(text = "Ingresar", fontWeight = FontWeight.Medium)
+                if (viewModel.loader) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                } else {
+                    Button(
+                        onClick = viewModel::login,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = ColorP1,
+                            contentColor = Color.White,
+                            disabledContainerColor = ColorP1
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(10.dp),
+                        contentPadding = PaddingValues(15.dp)
+                    ) {
+                        Text(text = "Ingresar", fontWeight = FontWeight.Medium)
+                    }
                 }
             }
+        }
 
-            Spacer(modifier = Modifier.weight(0.5f))
 
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = "Version ${obtenerVersionName(context)}",
+                text = "Version ${BuildConfig.VERSION_NAME}",
                 fontSize = 14.sp,
+                lineHeight = 12.sp,
                 color = Color.DarkGray
             )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Text(
+                    text = "developed by",
+                    color = Color.DarkGray,
+                    fontSize = 12.sp,
+                    lineHeight = 10.sp
+                )
+                AsyncImage(
+                    modifier = Modifier.height(12.dp),
+                    model = R.drawable.atm,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillHeight
+                )
+            }
         }
     }
-}
-
-private fun obtenerVersionName(context: Context): String {
-    try {
-        val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-        return packageInfo.versionName ?: ""
-    } catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
-    }
-    return ""
 }
 
 @Composable

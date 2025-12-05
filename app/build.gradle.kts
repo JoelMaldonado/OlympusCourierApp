@@ -15,8 +15,8 @@ android {
         applicationId = "com.atm.olympuscourierapp"
         minSdk = 29
         targetSdk = 35
-        versionCode = 1
-        versionName = "2.0.4"
+        versionCode = 5
+        versionName = "2.1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,6 +39,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -61,10 +62,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Navegaciones
-    implementation("androidx.navigation:navigation-compose:2.8.4")
+    implementation("androidx.navigation:navigation-compose:2.9.0")
 
     // Iconos
-    implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.6.0")
@@ -93,6 +94,7 @@ dependencies {
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+
     //Firebase Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
 
