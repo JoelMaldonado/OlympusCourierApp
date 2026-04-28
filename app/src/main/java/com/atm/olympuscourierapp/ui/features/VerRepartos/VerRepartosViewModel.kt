@@ -44,6 +44,7 @@ class VerRepartosViewModel @Inject constructor(
             } catch (e: Exception) {
                 state = state.copy(error = e.message)
             }
+            listarRepartos()
         }
     }
 
@@ -76,18 +77,24 @@ class VerRepartosViewModel @Inject constructor(
     fun subirMercaderia(idReparto: Int) {
         viewModelScope.launch {
             try {
+                state = state.copy(isLoading = true)
                 when (val res = repository.subirMercaderia(idReparto)) {
                     is EstadosResult.Correcto -> {
+                        state = state.copy(error = "Mercadería subida correctamente")
                         setEvent(VerRepartoEvents.ListarRepartos)
-                        throw Exception("Mercaderia subida correctamente")
                     }
-
-                    is EstadosResult.Error -> throw Exception(res.mensajeError)
+                    is EstadosResult.Error -> state = state.copy(error = res.mensajeError)
                 }
             } catch (e: Exception) {
                 state = state.copy(error = e.message)
+            } finally {
+                state = state.copy(isLoading = false)
             }
         }
+    }
+
+    fun clearError() {
+        state = state.copy(error = null)
     }
 
     fun setEvent(e: VerRepartoEvents) {

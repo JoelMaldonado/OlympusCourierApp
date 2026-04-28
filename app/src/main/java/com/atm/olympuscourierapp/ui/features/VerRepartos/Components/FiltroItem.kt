@@ -46,7 +46,7 @@ fun FiltroItem(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Icon(
-                imageVector = Icons.Default.CheckCircle,
+                imageVector = if (isSelected) Icons.Default.CheckCircle else Icons.Default.Circle,
                 contentDescription = null
             )
             Text(label)

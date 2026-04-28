@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -63,15 +62,12 @@ fun DarConformidadScreen(
 
     val permiso = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getReparto(idReparto)
         permiso.launchPermissionRequest()
     }
-
-    val context = LocalContext.current
-
-    val reparto = viewModel.reparto ?: return
 
     if (viewModel.back) {
         LaunchedEffect(key1 = Unit) {
@@ -80,16 +76,21 @@ fun DarConformidadScreen(
         }
     }
 
-    viewModel.error?.let {
-        context.show(it)
-        viewModel.error = null
+    LaunchedEffect(viewModel.error) {
+        viewModel.error?.let {
+            context.show(it)
+            viewModel.error = null
+        }
     }
 
     if (viewModel.reparto == null) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
+        return
     }
+
+    val reparto = viewModel.reparto!!
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -252,9 +253,6 @@ fun DarConformidadScreen(
                     }
                 }
             }
-
-            Spacer(modifier = Modifier.weight(1f))
-
 
             Column(
                 modifier = Modifier.fillMaxWidth(),

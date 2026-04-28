@@ -117,6 +117,8 @@ fun CardConformidadClaves(
                         onClick = {
                             if (permiso.status.isGranted) {
                                 takePicture.launch(null)
+                            } else {
+                                permiso.launchPermissionRequest()
                             }
                         }
                     ) {

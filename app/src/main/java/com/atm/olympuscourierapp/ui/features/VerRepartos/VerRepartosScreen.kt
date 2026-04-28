@@ -19,6 +19,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +35,7 @@ import com.atm.olympuscourierapp.ui.components.CardRepartoShimmer
 import com.atm.olympuscourierapp.ui.features.VerRepartos.Components.Drawer
 import com.atm.olympuscourierapp.ui.features.VerRepartos.Components.TopRepartos
 import com.atm.olympuscourierapp.ui.theme.ColorP1
+import com.atm.olympuscourierapp.util.show
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,12 +49,19 @@ fun VerRepartosScreen(
     val filtroDrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutine = rememberCoroutineScope()
 
+    val context = LocalContext.current
     val state = viewModel.state
+
+    LaunchedEffect(state.error) {
+        state.error?.let {
+            context.show(it)
+            viewModel.clearError()
+        }
+    }
 
     LaunchedEffect(
         key1 = Unit
     ) {
-        viewModel.setEvent(VerRepartoEvents.ListarRepartos)
         viewModel.init()
     }
 
