@@ -4,7 +4,6 @@ import com.atm.olympuscourierapp.app.BaseApp.Companion.prefs
 import com.atm.olympuscourierapp.data.server.ApiService
 import com.atm.olympuscourierapp.data.server.ApiService2
 import com.atm.olympuscourierapp.util.Constantes.BASE_URL
-import com.atm.olympuscourierapp.util.Constantes.NEW_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,7 +55,7 @@ object RetrofitModule {
     @Provides
     fun provideRepartoService(okHttpClient: OkHttpClient): ApiService2 {
         return Retrofit.Builder()
-            .baseUrl(NEW_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build().create(ApiService2::class.java)
