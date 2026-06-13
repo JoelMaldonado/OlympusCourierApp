@@ -15,8 +15,8 @@ android {
         applicationId = "com.atm.olympuscourierapp"
         minSdk = 29
         targetSdk = 35
-        versionCode = 7
-        versionName = "2.1.4"
+        versionCode = 9
+        versionName = "2.1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -102,4 +102,8 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
 
     implementation("com.github.kenglxn.QRGen:android:2.6.0")
+
+    // In-App Updates (Play Core)
+    implementation(libs.play.app.update)
+    implementation(libs.play.app.update.ktx)
 }
